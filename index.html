@@ -1,224 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Translator App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icon-css/css/flag-icon.min.css">
     <style>
-      /* Global reset */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+        /* Styles remain the same as your provided code */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: #1e1e2f; /* Dark background */
-        color: #ffffff; /* Light text for readability */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        text-align: center;
-        padding: 0 20px;
-      }
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #1e1e2f;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 0 20px;
+        }
 
-      /* Container for the entire app */
-      .app {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        max-width: 800px;
-        margin: 0 auto;
-        background-color: #2b2b3c; /* Slightly lighter dark card background */
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-        border-radius: 10px;
-        padding: 20px;
-        transition: all 0.3s ease;
-      }
-
-      /* Header Styling */
-      .header {
-        width: 100%;
-        text-align: center;
-        background-color: #5e60ce; /* Vibrant blue-violet */
-        color: #ffffff;
-        padding: 20px;
-        border-radius: 10px 10px 0 0;
-        margin-bottom: 20px;
-        box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.4);
-      }
-
-      .theme-toggle {
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: white;
-        margin-left: 10px;
-      }
-
-      /* Main Content Section */
-      .main-content {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-gap: 20px;
-        width: 100%;
-        justify-items: center;
-      }
-
-      .input-section,
-      .output-section {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-      }
-
-      .text-input,
-      .text-output {
-        width: 100%;
-        padding: 10px;
-        height: 150px;
-        font-size: 1rem;
-        border-radius: 8px;
-        border: 1px solid #5e60ce; /* Match header color */
-        background-color: #3a3a4f; /* Input background for dark mode */
-        color: #ffffff;
-        outline: none;
-      }
-
-      .text-input:focus,
-      .text-output:focus {
-        border-color: #9a8cfc;
-        box-shadow: 0 0 8px #9a8cfc;
-      }
-
-      .language-selector {
-        padding: 10px;
-        border-radius: 8px;
-        border: 1px solid #5e60ce;
-        font-size: 1rem;
-        background-color: #3a3a4f;
-        color: #ffffff;
-      }
-
-      /* Action Buttons */
-      .action-buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-      }
-
-      .translate-btn,
-      .clear-btn {
-        padding: 12px 20px;
-        font-size: 1rem;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease-in-out, box-shadow 0.2s;
-        color: white;
-        font-weight: bold;
-        background: linear-gradient(145deg, #6e72f2, #5e60ce); /* 3D gradient */
-        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5), -2px -2px 6px rgba(255, 255, 255, 0.1);
-      }
-
-      .translate-btn:hover {
-        background: linear-gradient(145deg, #7d80ff, #6e72f2); /* Slight color shift */
-        transform: translateY(-2px);
-        box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.5), -3px -3px 8px rgba(255, 255, 255, 0.1);
-      }
-
-      .clear-btn {
-        background: linear-gradient(145deg, #ff6e6e, #f54242); /* 3D gradient for red */
-      }
-
-      .clear-btn:hover {
-        background: linear-gradient(145deg, #ff7a7a, #ff5a5a); /* Slight color shift */
-        transform: translateY(-2px);
-        box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.5), -3px -3px 8px rgba(255, 255, 255, 0.1);
-      }
-
-      /* Footer Styling */
-      .footer {
-        padding: 10px;
-        text-align: center;
-        background-color: #5e60ce;
-        color: white;
-        width: 100%;
-        border-radius: 0 0 10px 10px;
-        margin-top: 20px;
-        box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.4);
-      }
-
-      /* Responsiveness */
-      @media (max-width: 600px) {
         .app {
-          width: 100%;
-          padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #2b2b3c;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .header {
+            width: 100%;
+            text-align: center;
+            background-color: #5e60ce;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 20px;
+            box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+            margin-left: 10px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-gap: 20px;
+            width: 100%;
+            justify-items: center;
+        }
+
+        .input-section,
+        .output-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
         }
 
         .text-input,
         .text-output {
-          height: 120px;
+            width: 100%;
+            padding: 10px;
+            height: 150px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #5e60ce;
+            background-color: #3a3a4f;
+            color: #ffffff;
+            outline: none;
+        }
+
+        .text-input:focus,
+        .text-output:focus {
+            border-color: #9a8cfc;
+            box-shadow: 0 0 8px #9a8cfc;
+        }
+
+        .language-selector {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #5e60ce;
+            font-size: 1rem;
+            background-color: #3a3a4f;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 10px;
+        }
+
+        .language-selector select {
+            background-color: transparent;
+            color: white;
+            border: none;
+            font-size: 1rem;
+            padding: 5px;
+            width: 100%;
+            outline: none;
+        }
+
+        .language-selector option {
+            padding: 10px;
         }
 
         .action-buttons {
-          width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
         }
 
-        button {
-          padding: 10px 15px;
+        .translate-btn,
+        .clear-btn {
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out, box-shadow 0.2s;
+            color: white;
+            font-weight: bold;
+            background: linear-gradient(145deg, #6e72f2, #5e60ce);
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5), -2px -2px 6px rgba(255, 255, 255, 0.1);
         }
-      }
+
+        .translate-btn:hover {
+            background: linear-gradient(145deg, #7d80ff, #6e72f2);
+            transform: translateY(-2px);
+            box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.5), -3px -3px 8px rgba(255, 255, 255, 0.1);
+        }
+
+        .clear-btn {
+            background: linear-gradient(145deg, #ff6e6e, #f54242);
+        }
+
+        .clear-btn:hover {
+            background: linear-gradient(145deg, #ff7a7a, #ff5a5a);
+            transform: translateY(-2px);
+            box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.5), -3px -3px 8px rgba(255, 255, 255, 0.1);
+        }
+
+        .speak-btn {
+            background: linear-gradient(145deg, #6ee6f2, #42c9f5);
+            color: white;
+            border: none;
+            font-size: 1rem;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .speak-btn:hover {
+            background: linear-gradient(145deg, #5be2e8, #38c1d9);
+            transform: scale(1.05);
+        }
+
+        .footer {
+            padding: 10px;
+            text-align: center;
+            background-color: #5e60ce;
+            color: white;
+            width: 100%;
+            border-radius: 0 0 10px 10px;
+            margin-top: 20px;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .flag-icon {
+            margin-right: 10px;
+        }
+
+        /* Add search functionality styling */
+        #language-search {
+            padding: 8px;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #5e60ce;
+            background-color: #3a3a4f;
+            color: white;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            background-color: #3a3a4f;
+            color: white;
+            border: 1px solid #5e60ce;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="app">
-      <!-- Header -->
-      <header class="header">
-        <h1>Translator App</h1>
-        <button class="theme-toggle">🌙</button> <!-- For dark mode toggle -->
-      </header>
+        <header class="header">
+            <h1>Translator App</h1>
+            <button class="theme-toggle">🌙</button>
+        </header>
 
-      <!-- Main Section -->
-      <main class="main-content">
-        <div class="input-section">
-          <textarea class="text-input" placeholder="Enter text..."></textarea>
-          <select class="language-selector source-language">
-            <!-- Options for source language -->
-          </select>
-        </div>
+        <main class="main-content">
+            <div class="input-section">
+                <textarea class="text-input" placeholder="Enter text..." id="input-text"></textarea>
+                <button class="speak-btn" onclick="speakText('input')">Speak Original</button>
+            </div>
 
-        <div class="action-buttons">
-          <button class="translate-btn">Translate</button>
-          <button class="clear-btn" onclick="clearText()">Clear</button>
-        </div>
+            <div class="language-selector">
+                <input type="text" id="language-search" placeholder="Search Languages..." oninput="filterLanguages()">
+                <label for="from-lang">From: </label>
+                <select id="from-lang"></select>
+                <label for="to-lang">To: </label>
+                <select id="to-lang"></select>
+            </div>
 
-        <div class="output-section">
-          <textarea class="text-output" placeholder="Translation appears here..." readonly></textarea>
-          <select class="language-selector target-language">
-            <!-- Options for target language -->
-          </select>
-        </div>
-      </main>
+            <div class="action-buttons">
+                <button class="translate-btn" onclick="translateText()">Translate</button>
+                <button class="clear-btn" onclick="clearText()">Clear</button>
+            </div>
 
-      <!-- Footer -->
-      <footer class="footer">
-        <p>Powered by Karim & Larry</p>
-      </footer>
+            <div class="output-section">
+                <textarea class="text-output" placeholder="Translation appears here..." readonly id="output-text"></textarea>
+                <button class="speak-btn" onclick="speakText('output')">Speak Translation</button>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Powered by Karim & Larry</p>
+        </footer>
     </div>
 
     <script>
-      // Clear button functionality
-      function clearText() {
-        document.querySelector('.text-input').value = '';
-        document.querySelector('.text-output').value = '';
-      }
+        // Language list from your JSON
+        const languages = {
+            af: { name: "Afrikaans", flag: "af" },
+            ak: { name: "Akan", flag: "gh" },
+            sq: { name: "Albanian", flag: "al" },
+            am: { name: "Amharic", flag: "et" },
+            ar: { name: "Arabic", flag: "ae" },
+            en: { name: "English", flag: "gb" },
+            es: { name: "Spanish", flag: "es" },
+            fr: { name: "French", flag: "fr" },
+            de: { name: "German", flag: "de" },
+            // Add more languages...
+        };
+
+        // Function to populate language selectors dynamically with flags
+        function populateLanguages() {
+            const fromLangSelect = document.getElementById("from-lang");
+            const toLangSelect = document.getElementById("to-lang");
+
+            for (const code in languages) {
+                const option = document.createElement("option");
+                option.value = code;
+                option.innerHTML = `<span class="flag-icon flag-icon-${languages[code].flag}"></span> ${languages[code].name}`;
+                fromLangSelect.appendChild(option);
+
+                const toOption = document.createElement("option");
+                toOption.value = code;
+                toOption.innerHTML = `<span class="flag-icon flag-icon-${languages[code].flag}"></span> ${languages[code].name}`;
+                toLangSelect.appendChild(toOption);
+            }
+        }
+
+        // Function to handle language filtering in the search input
+        function filterLanguages() {
+            const searchTerm = document.getElementById("language-search").value.toLowerCase();
+            const options = document.querySelectorAll('select option');
+
+            options.forEach(option => {
+                const languageName = option.innerText.toLowerCase();
+                if (languageName.includes(searchTerm)) {
+                    option.style.display = "block";
+                } else {
+                    option.style.display = "none";
+                }
+            });
+        }
+
+        // Initialize language selectors
+        populateLanguages();
+
+        async function translateText() {
+            const input = document.getElementById("input-text").value;
+            const fromLang = document.getElementById("from-lang").value;
+            const toLang = document.getElementById("to-lang").value;
+            const output = document.getElementById("output-text");
+
+            try {
+                const response = await fetch('http://localhost:5000/translate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        q: input,
+                        source: fromLang,
+                        target: toLang
+                    })
+                });
+                const data = await response.json();
+                output.value = data.translatedText;
+            } catch (error) {
+                console.error('Error during translation:', error);
+            }
+        }
+
+        function speakText(type) {
+            const text = type === "input" ? document.getElementById("input-text").value : document.getElementById("output-text").value;
+            if (text) {
+                const speech = new SpeechSynthesisUtterance(text);
+                speechSynthesis.speak(speech);
+            }
+        }
+
+        function clearText() {
+            document.getElementById("input-text").value = '';
+            document.getElementById("output-text").value = '';
+        }
     </script>
-  </body>
+</body>
 </html>
